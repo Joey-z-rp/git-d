@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 
 const UserAvatar = ({ user, size }) => (
     <img
@@ -8,4 +9,6 @@ const UserAvatar = ({ user, size }) => (
     />
 );
 
-export default UserAvatar;
+const mapStateToProps = state => ({ user: state.user });
+
+export default connect(mapStateToProps)(UserAvatar);

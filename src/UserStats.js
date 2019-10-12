@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from "react-redux";
 
 import UserAvatar from './UserAvatar';
 
 const UserStats = ({ user }) => (
     <div className="user-stats">
         <div>
-            <UserAvatar user={user} />
+            <UserAvatar />
             {user.name}
         </div>
         <div className="stats">
@@ -15,4 +16,7 @@ const UserStats = ({ user }) => (
     </div>
 );
 
-export default UserStats;
+const mapStateToProps = state => ({ user: state.user });
+
+export default connect(mapStateToProps)(UserStats);
+
