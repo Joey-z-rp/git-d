@@ -1,10 +1,8 @@
 import React from 'react';
 
-import UserStats from './UserStats';
-
-const Sidebar = ({ user }) => (
+const Sidebar = ({ children }) => (
     <div className="sidebar">
-        <UserStats user={user} />
+        {children}
     </div>
 );
 

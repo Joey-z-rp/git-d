@@ -1,7 +1,10 @@
 import React from 'react';
 
 import Body from './Body';
+import Content from './Content';
 import Nav from './Nav';
+import UserAvatar from './UserAvatar';
+import UserStats from './UserStats';
 
 import './App.css';
 
@@ -20,8 +23,13 @@ class App extends React.Component {
 
 		return (
 			<div className="app">
-				<Nav user={user} />
-				<Body user={user} />
+				<Nav>
+					<UserAvatar user={user} size="small" />
+				</Nav>
+				<Body
+					sidebar={<UserStats user={user} />}
+					content={<Content />}
+				/>
 			</div>
 		);
 	}
