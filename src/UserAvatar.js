@@ -1,5 +1,5 @@
 import React from 'react';
-import { withUser } from './UserContext';
+import { withUser } from './userContext';
 
 const UserAvatar = ({ user, size }) => (
     <img

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UserAvatar from './UserAvatar';
-import { withUser } from './UserContext';
+import { withUser } from './userContext';
 
 const UserStats = ({ user }) => (
     <div className="user-stats">

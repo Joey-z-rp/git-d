@@ -1,5 +1,12 @@
 import React from 'react';
 
-const Content = () => <div className="content">main content here</div>;
+import { withUser } from './userContext';
 
-export default Content;
+const Content = ({ user }) => (
+    <div className="content">
+        <p>main content here</p>
+        <button onClick={user.toggleAvatar}>toggle avatar</button>
+    </div>
+);
+
+export default withUser(Content);
