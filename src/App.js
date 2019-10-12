@@ -2,6 +2,7 @@ import React from 'react';
 
 import Body from './Body';
 import Nav from './Nav';
+import { Provider as UserContextProvider } from './UserContext';
 
 import './App.css';
 
@@ -20,8 +21,10 @@ class App extends React.Component {
 
 		return (
 			<div className="app">
-				<Nav user={user} />
-				<Body user={user} />
+				<UserContextProvider value={user}>
+					<Nav />
+					<Body />
+				</UserContextProvider>
 			</div>
 		);
 	}

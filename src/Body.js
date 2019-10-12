@@ -3,9 +3,9 @@ import React from 'react';
 import Content from './Content';
 import Sidebar from './Sidebar';
 
-const Body = ({ user }) => (
+const Body = () => (
     <div className="body">
-        <Sidebar user={user} />
+        <Sidebar />
         <Content />
     </div>
 );
