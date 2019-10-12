@@ -1,16 +1,12 @@
 import React from 'react';
-import { Consumer as UserContextConsumer } from './UserContext';
+import { withUser } from './UserContext';
 
-const UserAvatar = ({ size }) => (
-    <UserContextConsumer>
-        {user => (
-            <img
-                className={`user-avatar ${size || ""}`}
-                alt="user avatar"
-                src={user.avatar}
-            />
-        )}
-    </UserContextConsumer>
+const UserAvatar = ({ user, size }) => (
+    <img
+        className={`user-avatar ${size || ""}`}
+        alt="user avatar"
+        src={user.avatar}
+    />
 );
 
-export default UserAvatar;
+export default withUser(UserAvatar);
