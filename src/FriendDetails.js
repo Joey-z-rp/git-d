@@ -1,37 +1,16 @@
 import React from 'react';
 
-import { getFriendDataById } from './mockServer';
+import withFriend from './withFriend';
 
-class FriendDetails extends React.Component {
-    state = {
-        isLoading: false,
-        friendData: {},
-    };
+const FriendDetails = ({ isLoading, friendData }) => {
+    if (isLoading) return <div>Loading...</div>;
 
-    componentDidMount() {
-        this.setState({ isLoading: true }, () => {
-            getFriendDataById(this.props.id).then(friendData => this.setState({ friendData, isLoading: false }));
-        });
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.id !== this.props.id) {
-            this.setState({ isLoading: true }, () => {
-                getFriendDataById(this.props.id).then(friendData => this.setState({ friendData, isLoading: false }));
-            });
-        }
-    }
-
-	render() {
-        if (this.state.isLoading) return <div>Loading...</div>;
-
-        return (
-            <div>
-                <p>id: {this.state.friendData.id}</p>
-                <p>name: {this.state.friendData.name}</p>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <p>id: {friendData.id}</p>
+            <p>name: {friendData.name}</p>
+        </div>
+    );
 }
 
-export default FriendDetails;
+export default withFriend(FriendDetails);
