@@ -1,18 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { getFriendDataById } from './mockServer';
+import useFriendData from './useFriendData';
 
 const FriendDetails = ({ id }) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [friendData, setFriendData] = useState({});
-
-    useEffect(() => {
-        setIsLoading(true);
-        getFriendDataById(id).then(friendData => {
-            setFriendData(friendData);
-            setIsLoading(false);
-        });
-    }, [id]);
+    const [isLoading, friendData] = useFriendData(id);
 
     if (isLoading) return <div>Loading...</div>;
 
