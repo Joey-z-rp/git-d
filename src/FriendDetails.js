@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import useFriendData from './useFriendData';
 
 const FriendDetails = ({ id }) => {
     const [isLoading, friendData] = useFriendData(id);
 
-    const logFriendData = () => console.log(friendData.id, friendData.name);
+    const logFriendData = useCallback(() => console.log(friendData.id, friendData.name), [friendData]);
 
     useEffect(() => {
         window.addEventListener('scroll', logFriendData);
@@ -13,7 +13,7 @@ const FriendDetails = ({ id }) => {
         return () => {
             window.removeEventListener('scroll', logFriendData);
         };
-    }, []);
+    }, [logFriendData]);
 
     if (isLoading) return <div>Loading...</div>;
 
