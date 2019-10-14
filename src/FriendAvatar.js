@@ -1,7 +1,5 @@
 import React from 'react';
 
-import withFriend from './withFriend';
-
 const FriendAvatar = ({ isLoading, friendData }) => {
     if (isLoading) return <div>Loading...</div>;
 
@@ -10,4 +8,4 @@ const FriendAvatar = ({ isLoading, friendData }) => {
     );
 }
 
-export default withFriend(FriendAvatar);
+export default FriendAvatar;
