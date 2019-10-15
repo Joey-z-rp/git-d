@@ -86,17 +86,43 @@ const withFriend = Component => {
 // Usage
 withFriend(FriendAvatar); // this creates a wrapper component
 ```
-- function cannot be part of the data flow
+- function cannot be part of the data flow(because the identity of the class method/property stays the same)
 - Side effects are not driven by props and state(bacause the mutable 'this' object) which is a common source of bugs
 
 ### Benifits of Hooks:
 - Don't add unnecessary component hierarchy
 - Group related logic togather
-- Make non-visual logic easy to reuse
+- Make non-visual logic easier to reuse
 - No complex HOC or render props pattern anymore
-- Make components easy to split
+- Make components easier to split
 - Reduce bundle size(slightly)
 - Don't block browser from updating pages(useEffect runs after reflow and painting)
+
+## How to use Hooks:
+A function component equivalent to the above class component would be:
+```
+const FriendAvatar = ({ id }) => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [friendData, setFriendData] = useState({});
+
+	useEffect(() => {
+		setIsLoading(true);
+		getFriendDataById(id).then(friendData => {
+		    setFriendData(friendData);
+		    setIsLoading(false);
+		});
+	}, [id]);
+	
+	if (isLoading) return <div>Loading...</div>;
+
+        return (
+            <div><img src={friendData.avatar} alt="avatar" /></div>
+        );
+};
+```
+Run through:
+- `const [isLoading, setIsLoading] = useState(false);` uses `useState` to create state for function component
+
 
 ## Hooks Best Practices:
 - Should only be called inside a React component
