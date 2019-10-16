@@ -3,8 +3,8 @@
 ### Drawbacks of Class Components
 - Need to call super()
 - Confusing(or not) 'this' binding
-- Life cycle methods force non-related logic being put togather
-```
+- Life cycle methods force non-related logic being put together
+```javascript
 class MyComponent extends React.Component {
     componentDidMount() {
         // These two parts are not logically related yet we need to put them togather
@@ -23,7 +23,7 @@ class MyComponent extends React.Component {
 ```
 - Classes are less effecient in minification
 - Hard to reuse non-visual logic
-```
+```javascript
 class FriendAvatar extends React.Component {
     state = {
         isLoading: false,
@@ -54,7 +54,7 @@ class FriendAvatar extends React.Component {
 }
 ```
 - HOC and render props pattern may cause wrapper hell(because what they are really doing is most likely non-UI work but we need to make them components)
-```
+```javascript
 // Extracted data fetching logic but there is still some duplication inside the HOC
 const withFriend = Component => {
     return class WithFriendWrapper extends React.Component {
@@ -89,18 +89,17 @@ withFriend(FriendAvatar); // this creates a wrapper component
 - function cannot be part of the data flow(because the identity of the class method/property stays the same)
 - Side effects are not driven by props and state(bacause the mutable 'this' object) which is a common source of bugs
 
-### Benifits of Hooks
+### Benefits of Hooks
 - Don't add unnecessary component hierarchy
 - Group related logic togather
 - Make non-visual logic easier to reuse
 - No complex HOC or render props pattern anymore
-- Make components easier to split
 - Reduce bundle size(slightly)
 - Don't block browser from updating pages(useEffect runs after reflow and painting)
 
 ## How to use Hooks
 A function component equivalent to the above class component would be:
-```
+```javascript
 const FriendAvatar = ({ id }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [friendData, setFriendData] = useState({});
@@ -122,7 +121,7 @@ const FriendAvatar = ({ id }) => {
 ```
 Run through:
 - `const [isLoading, setIsLoading] = useState(false);` uses `useState` to create state for function component.
-	- The `false` passed to `useState` will be the initial value of `isLoading` on first render. `setIsLoading` is similar to `this.setState`, except it replaces the previous value.
+	- The `false` passed to `useState` will be the initial value of `isLoading` on first render. `setIsLoading` is similar to `this.setState`, except it replaces the previous value
 	- Calling `setIsLoading` will cause the component to rerender
 	- The reference of `setIsLoading` stays the same for every render
 - `const [friendData, setFriendData] = useState({});` creates a separate state in the component
@@ -132,9 +131,9 @@ Run through:
 	- `[id]` indicates that the effect should be run every time `id` changes
 	- the change of any element in the array would cause the `useEffect` to rerun
 	
-### Custom Hooks
+### Custom hooks
 The above example can be re-written as:
-```
+```javascript
 import { useFriendData } from './useFriendData';
 
 const FriendAvatar = ({ id }) => {
@@ -166,8 +165,8 @@ export const useFriendData = id => {
 - This `useFriendData` custom hook can be used in different components and will create completely separate state for each component
 - No unnecessary wrapper component created
 
-### Clean Up Effects
-```
+### Clean up effects
+```javascript
 const MyComponent = () => {
 	useEffect(() => {
 		const handleScroll = () => {}; // do something with scrolling
@@ -194,5 +193,5 @@ const MyComponent = () => {
 - Define side effect functions inside `useEffect`
 - If side effect functions can't be defined inside `useEffect`(e.g shared logic), hoist them outside the component or use `useCallback`
 
-## Tools for Hooks
+## Tools for hooks
 - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks): checks patterns that are not recommended
