@@ -190,8 +190,85 @@ const MyComponent = () => {
 - Should only be called inside a React component
 - Should be called in a way that subsequent renders wouldn't change the calling order of hooks(e.g not inside loops or if statements)
 - Be careful with hooks/event handlers that use component props or state, make sure to add these props or state to the dependency array(the 2nd argument of certain hooks, e.g useEffect), otherwise you may get stale props or state
+```javascript
+// can you spot anything wrong with this code snippet?
+const FriendAvatar = ({ id }) => {
+    const [isLoading, friendData] = useFriendData(id);
+  
+    const logFriendName = () => console.log(friendData.name);
+  
+    useEffect(() => {
+        window.addEventListener('scroll', logFriendName);
+ 
+        return () => {
+            window.removeEventListener('scroll', logFriendName);
+        };
+    }, []);
+ 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+  
+    return (
+        <div><img src={friendData.avatar} alt="avatar" /></div>
+    );
+};
+```
+Fix:
+```javascript
+const FriendAvatar = ({ id }) => {
+    const [isLoading, friendData] = useFriendData(id);
+
+    useEffect(() => {
+     	const logFriendName = () => console.log(friendData.name);
+	
+        window.addEventListener('scroll', logFriendName);
+ 
+        return () => {
+            window.removeEventListener('scroll', logFriendName);
+        };
+    }, [friendData]);
+ 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+  
+    return (
+        <div><img src={friendData.avatar} alt="avatar" /></div>
+    );
+};
+```
 - Define side effect functions inside `useEffect`
 - If side effect functions can't be defined inside `useEffect`(e.g shared logic), hoist them outside the component or use `useCallback`
+```javascript
+const MyComponent = ({ someProp }) => {
+    const sharedHandler = useCallback(() => {
+    	console.log(someProp);
+    }, [someProp]);
+
+    // first effect
+    useEffect(() => {
+    	 window.addEventListener('scroll', sharedHandler);
+	 
+	 return () => {
+            window.removeEventListener('scroll', sharedHandler);
+        };
+    }, [sharedEffect]);
+    
+    // second effec
+    useEffect(() => {
+    	 window.addEventListener('mousemove', sharedHandler);
+	 
+	 return () => {
+            window.removeEventListener('mousemove', sharedHandler);
+        };
+    }, [sharedEffect]);
+  
+    return (
+        <div>...</div>
+    );
+};
+```
 
 ## Tools for hooks
 - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks): checks patterns that are not recommended
