@@ -1,26 +1,18 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import FriendAvatar from './FriendAvatar';
-import FriendDetails from './FriendDetails';
+import ContextDemo from './context/ContextDemo';
+import UIDemo from './UIDemo/UIDemo';
 
 import './App.css';
 
-class App extends React.Component {
-	state = {
-		isFlipped: false,
-	};
+const App = () => (
+	<Switch>
+		<Redirect exact from="/" to="/context" />
+		<Route path="/context" component={ContextDemo} />
+		<Route path="/ui" component={UIDemo} />
 
-	render() {
-		return (
-			<div className="App">
-				<FriendAvatar id={this.state.isFlipped ? 123 : 456} />
-				<FriendDetails id={this.state.isFlipped ? 456 : 123} />
-				<button onClick={() => this.setState(state => ({ isFlipped: !state.isFlipped }))}>
-					Flip id
-				</button>
-			</div>
-		);
-	}
-}
+	</Switch>
+);
 
 export default App;
