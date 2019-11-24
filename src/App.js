@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import ContextDemo from './context/ContextDemo';
+import ContextDemo from './contextDemo/ContextDemo';
 import UIDemo from './UIDemo/UIDemo';
 
 import './App.css';
