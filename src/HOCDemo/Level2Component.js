@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '../UI/button/Button';
-import { withTheme } from './withTheme';
 
 const Level2Component = props => {
     const { theme } = props;
@@ -16,4 +15,4 @@ const Level2Component = props => {
     );
 };
 
-export default withTheme(Level2Component);
+export default Level2Component;
