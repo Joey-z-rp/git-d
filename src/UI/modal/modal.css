@@ -1,0 +1,36 @@
+.modal__overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #262626;
+    z-index: 9999;
+}
+
+.modal__content {
+    position: absolute;
+    width: 70vw;
+    height: 70vh;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
+.modal__close-button-wrapper {
+    position: relative;
+    height: 40px;
+}
+
+.modal__close-button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+}
